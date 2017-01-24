@@ -1,7 +1,34 @@
 angular.module('directivePractice')
 .directive('lessonHider', function() {
 
+    return {
+        restrict: 'E',
+        templateUrl: './views/lessonHider.html',
+        scope: {
+            lesson: '=',
+            dayAlert: '&'
+        },
+        controller: function($scope, lessonService) {
+            $scope.getSchedule = lessonService.getSchedule();
+        },
+        link: function( scope, element, attributes ) {
+            scope.getSchedule.then(function(response) {
+                console.log(response.data);
+                scope.schedule = response.data;
+
+                scope.schedule.forEach(function(scheduleDay) {
+                    scope.lessonDay = scheduleDay.weekday;
+                     if (scheduleDay.lesson === scope.lesson) {
+                     element.css('text-decoration', 'line-through');
+
+                     return;
+                     }
+                });
+            });
+        }
+
+    };
 
 
-    
-})
+
+});

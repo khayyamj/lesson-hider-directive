@@ -4,9 +4,11 @@
         <meta charset="utf-8">
         <title>Lesson Hider Directive</title>
     </head>
-    <body>
+    <body ng-controller='lessonCtrl'>
 
-
+        <ul>
+            <lesson-hider ng-repeat='lesson in lessons' lesson='lesson' day-alert='announceDay(lesson,day)'></lesson-hider>
+        </ul>
 
 
 
